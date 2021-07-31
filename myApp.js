@@ -1,5 +1,8 @@
 require('dotenv').config();
-
+const mongoose = require('mongoose');
+const MONGO_URI = process.env['MONGO_URI']
+//had to use secrets in repl, not sure it could affect the connection outside of repl enviroment, but i think it does so.
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 let Person;
 
