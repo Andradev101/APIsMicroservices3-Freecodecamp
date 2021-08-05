@@ -1,15 +1,19 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const MONGO_URI = process.env['MONGO_URI']
+const mySecret = process.env['MONGO_URI']
+
 //had to use secrets in repl, not sure it could affect the connection outside of repl enviroment, but i think it does so.
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mySecret, {
+  dbName : 'name', 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true });
 //lesson 1/12 done
 
 let Person;
 //creating a scheme an instancing it
 //https://mongoosejs.com/docs/guide.html
-const {Schema} = mongoose;
-const personSchema = new Schema ({
+const { Schema } = mongoose;
+var personSchema = new Schema({
   name: String,
   age: Number,
   favoriteFoods: [String]
@@ -28,37 +32,30 @@ const createAndSavePerson = (done) => {
     favoriteFoods: ["Pizza", "Esfiha"]
   })//struggled a bit in here
 
-  LuizHenrique.save(function(err,data){
+  LuizHenrique.save(function(err, data) {
     if (err) return handleError(err);
-    done(null,data);
+    done(null, data);
   });
 };
 //lesson 3/12 done
 
-const createManyPeople = (arrayOfPeople, done) => {
-  arrayOfPeople = [
-    {
-      name: "Clara",
-      age: 22,
-      favoriteFoods: ["Pizza", "Ice Cream"]
-    },
-    {
-      name: "Luiz",
-      age: 18,
-      favoriteFoods: ["Pizza", "Acai"]
-    }
-  ];
+var arrayOfPeople = [
+  {name: "aaaa", age: 74, favoriteFoods: ["Del Taco"]},
+  {name: "bbbb", age: 76, favoriteFoods: ["roast chicken"]},
+  {name: "cccc", age: 78, favoriteFoods: ["wine"]}
+];
+//the data should come outside the function
 
-  console.log(arrayOfPeople)
-
-  var createManyPeople = function(arrayOfPeople, done) {
-    Person.create(arrayOfPeople, function (err, people) {
-      if (err) return console.log(err);
-      done(null, people);
-    });
-  };
-
+const createManyPeople = (arrayOfPeople, done) => { 
+  Person.create(arrayOfPeople, function (err, people) {
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
+//struggled in this for 3-4 days in total, and it was pretty simple
+//Person.create(arrayOfPeople as param, and then calls a function that will log an error on just make its task)
+//lesson 4/12
+
 
 const findPeopleByName = (personName, done) => {
   done(null /*, data*/);
