@@ -54,16 +54,25 @@ const createManyPeople = (arrayOfPeople, done) => {
 };
 //struggled in this for 3-4 days in total, and it was pretty simple
 //Person.create(arrayOfPeople as param, and then calls a function that will log an error on just make its task)
-//lesson 4/12
-
+//lesson 4/12 done
 
 const findPeopleByName = (personName, done) => {
-  done(null /*, data*/);
+  Person.find({name: personName}, function (err, people) {
+    if (err) return console.log(err);
+    done(null, people);
+  });
 };
+//using personName as the name parameter
+//lesson 5/12 done
 
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+  Person.findOne({favoriteFoods: food}, function(err, people){
+    if(err) return console.log(err);
+  done(null, people);
+  });
 };
+//almost the same thing
+//lesson 6/12 done
 
 const findPersonById = (personId, done) => {
   done(null /*, data*/);
