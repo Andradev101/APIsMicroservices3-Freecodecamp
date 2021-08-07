@@ -110,21 +110,34 @@ const findAndUpdate = (personName, done) => {
 //lesson 9/12 done
 
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findByIdAndRemove(personId, function(err, person){
+    if(err) console.log(err);
+    done(null,person);
+  });
 };
-
+//lesson 10/12 done
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
-
-  done(null /*, data*/);
+  Person.remove({name: nameToRemove}, function(err, deledtedPerson){
+    if(err) console.log(err);
+    done(null,deledtedPerson);
+  });
 };
+//lesson 11/12 done
 
 const queryChain = (done) => {
   const foodToSearch = "burrito";
-
-  done(null /*, data*/);
+  
+  Person.find({favoriteFoods: foodToSearch})
+  .sort({name : 1})
+  .limit(2)
+  .select({age: 0})
+  .exec(function (err, person){
+    if(err) console.log(err);
+    done(null,person); 
+  })
 };
-
+//lesson 12/12 done
 /** **Well Done !!**
 /* You completed these challenges, let's go celebrate !
  */
